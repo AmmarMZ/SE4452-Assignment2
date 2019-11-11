@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/AmmarMZ/SE4452-Assignment-3/issues"
   },
-  "homepage": "https://github.com/AmmarMZ/SE4452-Assignment-3#readme"
+  "homepage": "https://github.com/AmmarMZ/SE4452-Assignment-3#readme",
+  "dependencies": {
+    "sinon": "^7.5.0"
+  }
 }
