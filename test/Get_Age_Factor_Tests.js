@@ -1,5 +1,5 @@
-var assert = require('assert');
-var purchaseOrder = require('../purchaseOrder.js');
+let assert = require('assert');
+let purchaseOrder = require('../purchaseOrder.js');
 
 describe('Get Age Factor Tests', () => {
   describe('Equivalence Class Tests', () => {
