@@ -9,6 +9,12 @@ const PRODUCTNAME = 'productName';
 const INVENTORYTHRESHOLD = 50;
 
 describe('Product Status Tests', () => {
+  /**
+   * Equivalence test cases:
+   * Used to determine whether the function is returning the proper return value given the input
+   * The input will be a value between the boundaries of the if statements of the function and not the boundary values themselves
+   * we will save this for the boundary tests
+   */
   describe('Equivalence Class Tests', () => {
 
     it(`Equivalence Test 1: return ${SOLDOUT} if (quantity == 0)`, () => {
@@ -29,7 +35,7 @@ describe('Product Status Tests', () => {
         assert.equal(purchaseOrder.productStatus.productStatus(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), LIMITED);
       });
 
-      it(`Equivalance Test 3: return ${AVAILABLE} if(quantity -- 25)`, () => {
+      it(`Equivalance Test 3: return ${AVAILABLE} if(quantity == 25)`, () => {
         let inventory = [];
         inventory.push({
             name: PRODUCTNAME,
@@ -40,6 +46,11 @@ describe('Product Status Tests', () => {
 
   });
 
+   /**
+   * Boundary tests are used to test the boundaries of the if statements of the function we are testing.
+   * For example if there is an if statement checking the value of a variable between (0, 10] then we
+   * will input values 0, 1, 9 and 10 to check if the function returns properly
+   */
   describe('Boundary Value tests', () => {
     it('Boundary Value Test 1: Quantity below lower bound', () => {
       let inventory = [];

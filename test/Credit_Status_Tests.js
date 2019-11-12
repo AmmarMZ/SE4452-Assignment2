@@ -8,6 +8,12 @@ const RESTRICTED = 'restricted';
 const DEFAULT = 'default';
 
 describe('Credit Status Tests', () => {
+  /**
+   * Equivalence test cases:
+   * Used to determine whether the function is returning the proper return value given the input
+   * The input will be a value between the boundaries of the if statements of the function and not the boundary values themselves
+   * we will save this for the boundary tests
+   */
   describe('Equivalence Class Tests', () => {
 
     it(`Equivalence Test 1: return ${INVALID} if (creditScore < 0)`, () => {
@@ -47,6 +53,11 @@ describe('Credit Status Tests', () => {
 
   });
 
+   /**
+   * Boundary tests are used to test the boundaries of the if statements of the function we are testing.
+   * For example if there is an if statement checking the value of a variable between (0, 10] then we
+   * will input values 0, 1, 9 and 10 to check if the function returns properly
+   */
   describe('Boundary Value Tests', () => {
     it('Boundary Value Test 1: Credit Score below lower bound', () => {
       let params = {

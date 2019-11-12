@@ -25,6 +25,9 @@ const FUNCTION_CREDITSTATUS = 'creditStatus';
 const FUNCTION_PRODUCTSTATUS = 'productStatus'
 
 describe('orderHandling Testing', function() {
+    /**
+     * Decision table tests will test the functions using different arrangements of variables
+     */
   describe('Decision Table tests', () => {
       
     this.beforeEach(() => {
@@ -39,7 +42,7 @@ describe('orderHandling Testing', function() {
         stubFunction2.restore();
     });
 
-    it('Decision Test 1: return rejected', () =>  {
+    it(`Decision Test 1: return ${STATUS_REJECTED}`, () =>  {
         stubFunction.onCall(0).returns(STATUS_INVALID);
         stubFunction1.onCall(0).returns(STATUS_INVALID);
         stubFunction2.onCall(0).returns(STATUS_INVALID);
@@ -57,7 +60,7 @@ describe('orderHandling Testing', function() {
         assert.equal(purchaseOrder.orderHandling(customer, PRODUCTNAME, inventory, inventoryThreshold, CREDIT_STRICT), STATUS_REJECTED);
     });
 
-    it('Decision Test 2: return rejected', () =>  {
+    it(`Decision Test 2: return ${STATUS_REJECTED}`, () =>  {
         stubFunction.onCall(0).returns(FAIR);
         stubFunction1.onCall(0).returns(BAD);
         stubFunction2.onCall(0).returns(LIMITED);
@@ -75,7 +78,7 @@ describe('orderHandling Testing', function() {
         assert.equal(purchaseOrder.orderHandling(customer, PRODUCTNAME, inventory, inventoryThreshold, CREDIT_STRICT), STATUS_REJECTED);
     });
 
-    it('Decision Test 3: return rejected', () =>  {
+    it(`Decision Test 3: return ${STATUS_REJECTED}`, () =>  {
         stubFunction.onCall(0).returns(POOR);
         stubFunction1.onCall(0).returns(GOOD);
         stubFunction2.onCall(0).returns(SOLDOUT);
@@ -93,7 +96,7 @@ describe('orderHandling Testing', function() {
         assert.equal(purchaseOrder.orderHandling(customer, PRODUCTNAME, inventory, inventoryThreshold, CREDIT_STRICT), STATUS_REJECTED);
     });
 
-    it('Decision Test 4: return rejected', () =>  {
+    it(`Decision Test 4: return ${STATUS_REJECTED}`, () =>  {
         stubFunction.onCall(0).returns(POOR);
         stubFunction1.onCall(0).returns(BAD);
         stubFunction2.onCall(0).returns(AVAILABLE);
@@ -111,7 +114,7 @@ describe('orderHandling Testing', function() {
         assert.equal(purchaseOrder.orderHandling(customer, PRODUCTNAME, inventory, inventoryThreshold, CREDIT_STRICT), STATUS_REJECTED);
     });
 
-    it('Decision Test 5: return accepted', () =>  {
+    it(`Decision Test 5: return ${STATUS_ACCEPTED}`, () =>  {
         stubFunction.onCall(0).returns(VERYGOOD);
         stubFunction1.onCall(0).returns(BAD);
         stubFunction2.onCall(0).returns(AVAILABLE);
@@ -130,7 +133,7 @@ describe('orderHandling Testing', function() {
         assert.equal(purchaseOrder.orderHandling(customer, PRODUCTNAME, inventory, inventoryThreshold, creditCheckMode), STATUS_ACCEPTED);
     });
 
-    it('Decision Test 6: return accepted', () =>  {
+    it(`Decision Test 6: return ${STATUS_ACCEPTED}`, () =>  {
         stubFunction.onCall(0).returns(GOOD);
         stubFunction1.onCall(0).returns(GOOD);
         stubFunction2.onCall(0).returns(AVAILABLE);
@@ -148,7 +151,7 @@ describe('orderHandling Testing', function() {
         assert.equal(purchaseOrder.orderHandling(customer, PRODUCTNAME, inventory, inventoryThreshold, CREDIT_STRICT), STATUS_ACCEPTED);
     });
 
-    it('Decision Test 7: return accepted', () =>  {
+    it(`Decision Test 7: return ${STATUS_ACCEPTED}`, () =>  {
         stubFunction.onCall(0).returns(POOR);
         stubFunction1.onCall(0).returns(GOOD);
         stubFunction2.onCall(0).returns(AVAILABLE);
@@ -166,7 +169,7 @@ describe('orderHandling Testing', function() {
         assert.equal(purchaseOrder.orderHandling(customer, PRODUCTNAME, inventory, inventoryThreshold, CREDIT_STRICT), STATUS_ACCEPTED);
     });
 
-    it('Decision Test 8: return accepted', () =>  {
+    it(`Decision Test 8: return ${STATUS_ACCEPTED}`, () =>  {
         stubFunction.onCall(0).returns(FAIR);
         stubFunction1.onCall(0).returns(GOOD);
         stubFunction2.onCall(0).returns(AVAILABLE);
@@ -184,7 +187,7 @@ describe('orderHandling Testing', function() {
         assert.equal(purchaseOrder.orderHandling(customer, PRODUCTNAME, inventory, inventoryThreshold, CREDIT_STRICT), STATUS_ACCEPTED);
     });
 
-    it('Decision Test 9: return underReview', () =>  {
+    it(`Decision Test 9: return ${STATUS_UNDERREVIEW}`, () =>  {
         stubFunction.onCall(0).returns(GOOD);
         stubFunction1.onCall(0).returns(BAD);
         stubFunction2.onCall(0).returns(AVAILABLE);
@@ -202,7 +205,7 @@ describe('orderHandling Testing', function() {
         assert.equal(purchaseOrder.orderHandling(customer, PRODUCTNAME, inventory, inventoryThreshold, CREDIT_STRICT), STATUS_UNDERREVIEW);
     });
 
-    it('Decision Test 10: return underReview', () =>  {
+    it(`Decision Test 10: return ${STATUS_UNDERREVIEW}`, () =>  {
         stubFunction.onCall(0).returns(FAIR);
         stubFunction1.onCall(0).returns(BAD);
         stubFunction2.onCall(0).returns(AVAILABLE);
@@ -220,7 +223,7 @@ describe('orderHandling Testing', function() {
         assert.equal(purchaseOrder.orderHandling(customer, PRODUCTNAME, inventory, inventoryThreshold, CREDIT_STRICT), STATUS_UNDERREVIEW);
     });
 
-    it('Decision Test 11: return pending', () =>  {
+    it(`Decision Test 11: return ${STATUS_PENDING}`, () =>  {
         stubFunction.onCall(0).returns(FAIR);
         stubFunction1.onCall(0).returns(GOOD);
         stubFunction2.onCall(0).returns(SOLDOUT);
@@ -238,7 +241,7 @@ describe('orderHandling Testing', function() {
         assert.equal(purchaseOrder.orderHandling(customer, PRODUCTNAME, inventory, inventoryThreshold, CREDIT_STRICT), STATUS_PENDING);
     });
 
-    it('Decision Test 12: return pending', () =>  {
+    it(`Decision Test 12: return ${STATUS_PENDING}`, () =>  {
         stubFunction.onCall(0).returns(POOR);
         stubFunction1.onCall(0).returns(GOOD);
         stubFunction2.onCall(0).returns(LIMITED);
