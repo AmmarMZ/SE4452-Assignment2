@@ -17,7 +17,7 @@ describe('Product Status Tests', () => {
           name: PRODUCTNAME,
           q: 0
       });
-      assert.equal(purchaseOrder.productStatus.prodStat(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), SOLDOUT);
+      assert.equal(purchaseOrder.productStatus.productStatus(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), SOLDOUT);
     });
 
     it(`Equivalance Test 2: return ${LIMITED} if (quantity == 25)`, () => {
@@ -26,7 +26,7 @@ describe('Product Status Tests', () => {
             name: PRODUCTNAME,
             q: 25
         });
-        assert.equal(purchaseOrder.productStatus.prodStat(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), LIMITED);
+        assert.equal(purchaseOrder.productStatus.productStatus(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), LIMITED);
       });
 
       it(`Equivalance Test 3: return ${AVAILABLE} if(quantity -- 25)`, () => {
@@ -35,7 +35,7 @@ describe('Product Status Tests', () => {
             name: PRODUCTNAME,
             q: 50
         });
-        assert.equal(purchaseOrder.productStatus.prodStat(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), AVAILABLE);
+        assert.equal(purchaseOrder.productStatus.productStatus(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), AVAILABLE);
       });
 
   });
@@ -47,7 +47,7 @@ describe('Product Status Tests', () => {
           name: PRODUCTNAME,
           q: -1
       });
-      assert.equal(purchaseOrder.productStatus.prodStat(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), INVALID);
+      assert.equal(purchaseOrder.productStatus.productStatus(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), INVALID);
     });
 
     it('Boundary Value Test 2: Quantity at lower bound', () => {
@@ -56,7 +56,7 @@ describe('Product Status Tests', () => {
           name: PRODUCTNAME,
           q: 0
       });
-      assert.equal(purchaseOrder.productStatus.prodStat(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), SOLDOUT);
+      assert.equal(purchaseOrder.productStatus.productStatus(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), SOLDOUT);
     });
 
     it('Boundary Value Test 3: Quantity above lower bound', () => {
@@ -65,7 +65,7 @@ describe('Product Status Tests', () => {
           name: PRODUCTNAME,
           q: 1
       });
-      assert.equal(purchaseOrder.productStatus.prodStat(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), LIMITED);
+      assert.equal(purchaseOrder.productStatus.productStatus(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), LIMITED);
     });
 
     it('Boundary Value Test 4: Quantity below upper bound', () => {
@@ -74,7 +74,7 @@ describe('Product Status Tests', () => {
           name: PRODUCTNAME,
           q: 49
       });
-      assert.equal(purchaseOrder.productStatus.prodStat(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), LIMITED);
+      assert.equal(purchaseOrder.productStatus.productStatus(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), LIMITED);
     });
 
     it('Boundary Value Test 5: Quantity at upper bound', () => {
@@ -83,7 +83,7 @@ describe('Product Status Tests', () => {
           name: PRODUCTNAME,
           q: 50
       });
-      assert.equal(purchaseOrder.productStatus.prodStat(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), AVAILABLE);
+      assert.equal(purchaseOrder.productStatus.productStatus(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), AVAILABLE);
     });
 
     it('Boundary Value Test 6: Quantity above upper bound', () => {
@@ -92,7 +92,7 @@ describe('Product Status Tests', () => {
           name: PRODUCTNAME,
           q: 51
       });
-      assert.equal(purchaseOrder.productStatus.prodStat(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), AVAILABLE);
+      assert.equal(purchaseOrder.productStatus.productStatus(PRODUCTNAME, inventory, INVENTORYTHRESHOLD), AVAILABLE);
     });
   });
 });

@@ -15,7 +15,7 @@ describe('Account Status Tests', () => {
         balance: 500,
         creditScore: 50
       };
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
 
     it(`Equivalent Test 2: return ${GOOD} if (5 <= age <= 120)`, () => {
@@ -24,7 +24,7 @@ describe('Account Status Tests', () => {
         balance: 500,
         creditScore: 50
       };
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), GOOD);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), GOOD);
     });
 
     it(`Equivalent Test 3: return ${INVALID} if (age > 120)`, () => {
@@ -33,7 +33,7 @@ describe('Account Status Tests', () => {
         balance: 500,
         creditScore: 50
       };
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
 
     it(`Equivalent Test 4: return ${INVALID} if (balance < 0)`, () => {
@@ -42,7 +42,7 @@ describe('Account Status Tests', () => {
         balance: -500,
         creditScore: 50
       };
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
 
     it(`Equivalent Test 5: return ${VERYGOOD} if (0 <= balance <= 50000)`, () => {
@@ -51,7 +51,7 @@ describe('Account Status Tests', () => {
         balance: 10000,
         creditScore: 50
       };
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), VERYGOOD);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), VERYGOOD);
     });
 
     it(`Equivalent Test 6: return ${INVALID} if (balance > 50000)`, () => {
@@ -60,7 +60,7 @@ describe('Account Status Tests', () => {
         balance: 60000,
         creditScore: 50
       };
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
   });
 
@@ -70,7 +70,7 @@ describe('Account Status Tests', () => {
         age: 4,
         balance: -1,
       }
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
 
     it(`Boundary Value Test 2: return ${INVALID} if (age < 5 && balance = any value)`, () => {
@@ -78,7 +78,7 @@ describe('Account Status Tests', () => {
         age: 4,
         balance: 0,
       }
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
 
     it(`Boundary Value Test 3: return ${INVALID} if (age < 5 && balance = any value)`, () => {
@@ -86,7 +86,7 @@ describe('Account Status Tests', () => {
         age: 4,
         balance: 10,
       }
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
 
     it(`Boundary Value Test 4: return ${INVALID} if (age < 5 && balance = any value)`, () => {
@@ -94,7 +94,7 @@ describe('Account Status Tests', () => {
         age: 4,
         balance: 100,
       }
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
 
     it(`Boundary Value Test 5: return ${INVALID} if (age < 5 && balance = any value)`, () => {
@@ -102,7 +102,7 @@ describe('Account Status Tests', () => {
         age: 4,
         balance: 1000,
       }
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
     
     it(`Boundary Value Test 6: return ${INVALID} if (age < 5 && balance = any value)`, () => {
@@ -110,7 +110,7 @@ describe('Account Status Tests', () => {
         age: 4,
         balance: 10000,
       }
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
 
     it(`Boundary Value Test 7: return ${INVALID} if (age < 5 && balance = any value)`, () => {
@@ -118,7 +118,7 @@ describe('Account Status Tests', () => {
         age: 4,
         balance: 30000,
       }
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
 
     it(`Boundary Value Test 8: return ${INVALID} if (age < 5 && balance = any value)`, () => {
@@ -126,7 +126,7 @@ describe('Account Status Tests', () => {
         age: 4,
         balance: 50000,
       }
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
 
 
@@ -135,7 +135,7 @@ describe('Account Status Tests', () => {
         age: 5,
         balance: 0,
       }
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
 
     it('Boundary Value Test 10: age and balance', () => {
@@ -143,7 +143,7 @@ describe('Account Status Tests', () => {
         age: 6,
         balance: 1,
       }
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), POOR);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), POOR);
     });
 
     it('Boundary Value Test 11: age and balance', () => {
@@ -151,7 +151,7 @@ describe('Account Status Tests', () => {
         age: 119,
         balance: 49999,
       }
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), VERYGOOD);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), VERYGOOD);
     });
 
     it('Boundary Value Test 12: age and balance', () => {
@@ -159,7 +159,7 @@ describe('Account Status Tests', () => {
         age: 120,
         balance: 50000,
       }
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
 
     it('Boundary Value Test 13: age and balance', () => {
@@ -167,7 +167,7 @@ describe('Account Status Tests', () => {
         age: 121,
         balance: 50001,
       }
-      assert.equal(purchaseOrder.AccountStatus.accStat(params), INVALID);
+      assert.equal(purchaseOrder.AccountStatus.accountStatus(params), INVALID);
     });
   });
 });

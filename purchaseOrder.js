@@ -46,7 +46,7 @@ var getBalanceFactor = function (clientAccount) {
     return factor;
 };
 
-var AccountStatus = {accStat : function (clientAccount) {
+var AccountStatus = {accountStatus : function (clientAccount) {
 
     var factor1 = getAgeFactor(clientAccount);
 
@@ -71,7 +71,7 @@ var AccountStatus = {accStat : function (clientAccount) {
     }
 }};
 
-var creditStatus = {credStat : function (clientAccount, creditCheckMode) {
+var creditStatus = {creditStatus : function (clientAccount, creditCheckMode) {
     var scoreThreshold;
 
     if (clientAccount.creditScore < 0 || clientAccount.creditScore > 100)
@@ -93,7 +93,7 @@ var creditStatus = {credStat : function (clientAccount, creditCheckMode) {
 
 }};
 
-var productStatus = {prodStat : function (product, inventory, inventoryThreshold) { 
+var productStatus = {productStatus : function (product, inventory, inventoryThreshold) { 
     var q;
 
     for (let i = 0; i <= inventory.length; i++) {
@@ -119,30 +119,30 @@ var productStatus = {prodStat : function (product, inventory, inventoryThreshold
 
 var orderHandling = function(clientAccount, product, inventory, inventoryThreshold, creditCheckMode) {
 
-    var aStautus = AccountStatus.accStat(clientAccount);
+    var aStatus = AccountStatus.accountStatus(clientAccount);
 
-    var cStatus = creditStatus.credStat(clientAccount, creditCheckMode);
+    var cStatus = creditStatus.creditStatus(clientAccount, creditCheckMode);
 
-    var pStatus = productStatus.prodStat(product, inventory, inventoryThreshold);
+    var pStatus = productStatus.productStatus(product, inventory, inventoryThreshold);
 
-    if ((aStautus ==="invalid" || cStatus === "invalid" || pStatus === "invalid") 
-    || (aStautus === "fair" &&  cStatus === "bad" && pStatus != "available") 
-    || (aStautus === "poor" && cStatus === "good" && pStatus === "soldout") 
-    || (aStautus === "poor" && cStatus=== "bad" )) {
+    if ((aStatus === "invalid" || cStatus === "invalid" || pStatus === "invalid") 
+    || (aStatus === "fair" &&  cStatus === "bad" && pStatus != "available") 
+    || (aStatus === "poor" && cStatus === "good" && pStatus === "soldout") 
+    || (aStatus === "poor" && cStatus === "bad" )) {
         return "rejected";
     }
 
-    else if ((aStautus === "very good") || (aStautus === "good" && cStatus === "good") 
-    || (aStautus != "good" && cStatus === "good" && pStatus === "available")) {
+    else if ((aStatus === "very good") || (aStatus === "good" && cStatus === "good") 
+    || (aStatus != "good" && cStatus === "good" && pStatus === "available")) {
         return "accepted";
     }
 
-    else if ((aStautus === "good" && cStatus === "bad") || (aStautus === "fair" && cStatus === "bad" && pStatus === "available")) {
+    else if ((aStatus === "good" && cStatus === "bad") || (aStatus === "fair" && cStatus === "bad" && pStatus === "available")) {
         return "underReview";
     }
 
-    else if ((aStautus === "fair" && cStatus === "good" && pStatus != "available") 
-    || (aStautus === "poor" && cStatus === "good" && pStatus === "limited")) {
+    else if ((aStatus === "fair" && cStatus === "good" && pStatus != "available") 
+    || (aStatus === "poor" && cStatus === "good" && pStatus === "limited")) {
         return "pending";
     }
 };
