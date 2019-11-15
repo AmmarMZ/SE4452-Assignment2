@@ -22,21 +22,21 @@ describe('Account Status Tests', () => {
             {start: -50, end: 15}, // 0
             {start: 15, end: 20}, // 5
             {start: 20, end: 30}, // 10
-           {start: 30, end: 40}, // 20
-           {start: 40, end: 65}, // 50
-           {start: 65, end: 110}, // 20
-           {start: 110, end: 200}, // 0
+            {start: 30, end: 40}, // 20
+            {start: 40, end: 65}, // 50
+            {start: 65, end: 110}, // 20
+            {start: 110, end: 200}, // 0
         ];
 
         // range of balances
         let balances = [
-            {start: -50, end: 0}, // 0
-            {start: 0, end: 100}, // 6
+            {start: -50, end: 1}, // 0
+            {start: 1, end: 100}, // 6
             {start: 100, end: 500}, // 16
-           {start: 500, end: 1000}, // 30
-           {start: 1000, end: 3000}, // 70
-           {start: 3000, end: 5000}, // 200
-           {start: 5000, end: 6000}, // 0
+            {start: 500, end: 1000}, // 30
+            {start: 1000, end: 3000}, // 70
+            {start: 3000, end: 5000}, // 200
+            {start: 5000, end: 6000}, // 0
         ];
 
         // manually calculated the return values

@@ -8,7 +8,6 @@ const good = 'good';
 const ccmRestricted = 'restricted';
 const ccmDefault = 'default';
 
-
 let creditCheckModes = [
 	ccmRestricted, ccmDefault,
 ]
