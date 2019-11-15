@@ -1,7 +1,7 @@
 let assert = require('assert');
 let purchaseOrder = require('../purchaseOrder.js');
 
-describe('Get Age Factor Tests', () => {
+describe('Get Balance Factor Tests', () => {
 	/**
 	 * Equivalence test cases:
 	 * Used to determine whether the function is returning the proper return value given the input
@@ -9,38 +9,38 @@ describe('Get Age Factor Tests', () => {
 	 * we will save this for the boundary tests
 	 */
 
-	let ages = [
-		{start: -50, end: 15}, // 0
-		{start: 15, end: 20}, // 5
-		{start: 20, end: 30}, // 10
-	   	{start: 30, end: 40}, // 20
-	   	{start: 40, end: 65}, // 50
-	   	{start: 65, end: 110}, // 20
-	   	{start: 110, end: 200}, // 0
-	];
+    let balances = [
+        {start: -50, end: 0}, // 0
+        {start: 0, end: 100}, // 6
+        {start: 100, end: 500}, // 16
+       {start: 500, end: 1000}, // 30
+       {start: 1000, end: 3000}, // 70
+       {start: 3000, end: 5000}, // 200
+       {start: 5000, end: 6000}, // 0
+    ];
 
 	let ECreturns = [
-		0, 5, 10, 20, 50, 20, 0
-	]
+		0, 6, 16, 30, 70, 200, 0
+	];
 
 	describe('Equivalence Class Tests', () => {
 
-		for (let i = 0; i < ages.length; i++) {
-            let currAge = getRandInRange(ages[i].start, ages[i].end);
-			it(`Equivalence Test ${(i+1)}: Return ${ECreturns[i]} for age = ${currAge}`, () => {
+		for (let i = 0; i < balances.length; i++) {
+            let currBalance = getRandInRange(balances[i].start, balances[i].end);
+			it(`Equivalence Test ${(i+1)}: Return ${ECreturns[i]} for balance = ${currBalance}`, () => {
 				let input = {
-					age: currAge,
+					balance: currBalance,
 				};
-				assert.equal(purchaseOrder.getAgeFactor(input), ECreturns[i]);
+				assert.equal(purchaseOrder.getBalanceFactor(input), ECreturns[i]);
 			});
 		}
-	});
-
-	let agesBoundaries = [
-		14, 15, 16, 19, 20, 21, 29, 30, 31, 39, 40, 41, 64, 65, 66, 109, 110, 111
+    });
+    
+    let balanceBoundaries = [
+		-1, 0, 1, 99, 100, 101, 499, 500, 501, 999, 1000, 1001, 2999, 3000, 3001, 4999, 5000, 5001
 	];
 	let BCreturns = [
-		0, 5, 5, 5, 10, 10, 10, 20, 20, 20, 50, 50, 50, 20, 20, 20, 20, 0,
+		0, 0, 6, 6, 16, 16, 16, 30, 30, 30, 70, 70, 70, 200, 200, 200, 0, 0
 	]
 
 	/**
@@ -50,14 +50,16 @@ describe('Get Age Factor Tests', () => {
    */
 	describe('Boundary Class Tests', () => {
 		for (let i = 0; i < BCreturns.length; i++) {
-			it(`Boundary Test ${(i+1)}: Return ${BCreturns[i]} for age = ${agesBoundaries[i]}`, () => {
+			it(`Boundary Test ${(i+1)}: Return ${BCreturns[i]} for balance = ${balanceBoundaries[i]}`, () => {
 				let input = {
-					age: agesBoundaries[i],
+					balance: balanceBoundaries[i],
 				};
-				assert.equal(purchaseOrder.getAgeFactor(input), BCreturns[i]);
+				assert.equal(purchaseOrder.getBalanceFactor(input), BCreturns[i]);
 			});
 		}
 	});
+
+
 });
 
 /**

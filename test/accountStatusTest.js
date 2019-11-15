@@ -71,7 +71,12 @@ describe('Account Status Tests', () => {
 	});
 });
 
-// function to get value within a range of functions
+/**
+ * 
+ * @param {int} min - inclusive
+ * @param {int} max - exclusive
+ *  Gets a random value in within the range instead of hard coding a value from the range
+ */
 function getRandInRange(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
