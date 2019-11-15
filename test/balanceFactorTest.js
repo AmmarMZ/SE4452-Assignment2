@@ -13,10 +13,10 @@ describe('Get Balance Factor Tests', () => {
         {start: -50, end: 0}, // 0
         {start: 0, end: 100}, // 6
         {start: 100, end: 500}, // 16
-       {start: 500, end: 1000}, // 30
-       {start: 1000, end: 3000}, // 70
-       {start: 3000, end: 5000}, // 200
-       {start: 5000, end: 6000}, // 0
+        {start: 500, end: 1000}, // 30
+        {start: 1000, end: 3000}, // 70
+        {start: 3000, end: 5000}, // 200
+        {start: 5000, end: 6000}, // 0
     ];
 
 	let ECreturns = [
@@ -41,7 +41,7 @@ describe('Get Balance Factor Tests', () => {
 	];
 	let BCreturns = [
 		0, 0, 6, 6, 16, 16, 16, 30, 30, 30, 70, 70, 70, 200, 200, 200, 0, 0
-	]
+	];
 
 	/**
    * Boundary tests are used to test the boundaries of the if statements of the function we are testing.
@@ -58,8 +58,6 @@ describe('Get Balance Factor Tests', () => {
 			});
 		}
 	});
-
-
 });
 
 /**

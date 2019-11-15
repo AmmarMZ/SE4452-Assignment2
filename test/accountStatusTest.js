@@ -59,7 +59,7 @@ describe('Account Status Tests', () => {
             for (let j = 0; j < balances.length; j++) {
 
                 let currBalance = getRandInRange(balances[j].start, balances[j].end);
-                it(`Equivalence Test ${(i+1) + '-' + tc++}: Return ${returns[i][j]} for age = ${currAge} and balance = ${currBalance}`, () => {
+                it(`Decision Table Test ${(i+1) + '-' + tc++}: Return ${returns[i][j]} for age = ${currAge} and balance = ${currBalance}`, () => {
                     let input = {
                         age: currAge,
                         balance: currBalance,

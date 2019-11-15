@@ -21,7 +21,7 @@ describe('Get Age Factor Tests', () => {
 
 	let ECreturns = [
 		0, 5, 10, 20, 50, 20, 0
-	]
+	];
 
 	describe('Equivalence Class Tests', () => {
 
@@ -41,7 +41,7 @@ describe('Get Age Factor Tests', () => {
 	];
 	let BCreturns = [
 		0, 5, 5, 5, 10, 10, 10, 20, 20, 20, 50, 50, 50, 20, 20, 20, 20, 0,
-	]
+	];
 
 	/**
    * Boundary tests are used to test the boundaries of the if statements of the function we are testing.
