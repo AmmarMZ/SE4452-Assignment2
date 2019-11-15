@@ -1,157 +1,153 @@
-var getAgeFactor = function(clientAccount) { 
+var getAgeFactor=function(clientAccount ){ 
     var factor;
 
-    if (clientAccount.age < 5 || clientAccount.age > 120) {
+    if (clientAccount.age <15 || clientAccount.age > 110){
         factor = 0;
     }
-    else  if (clientAccount.age < 10) {
+    else  if (clientAccount.age <20){
         factor = 5;
     }
-    else if (clientAccount.age < 18) {
-        factor = 10;
+    else if (clientAccount.age <30){
+        factor= 10;
     }
-    else if (clientAccount.age < 30) {
-        factor = 20;
+    else if (clientAccount.age <40){
+        factor=20;
     }
-    else if (clientAccount.age < 70) {
-        factor = 50;
+    else if (clientAccount.age <65){
+        factor =50;
     }
-    else if (clientAccount.age <= 120) {
-        factor = 20;
+    else if (clientAccount.age <=110){
+        factor =20;
     }
     return factor;
-};
+    
+}
 
-var getBalanceFactor = function (clientAccount) {
+var getBalanceFactor=function (clientAccount ){    
     var factor;
-    //FIXED balance >= 50000 to include 50000
-    if (clientAccount.balance <= 0 || clientAccount.balance >= 50000){
-        factor = 0;
+    
+    if (clientAccount.balance <= 0 || clientAccount.balance >= 5000){
+        factor = 0; 
     }
-    else if (clientAccount.balance < 100) {
+    else if (clientAccount.balance < 100){
         factor = 6;
     }
-    else if (clientAccount.balance < 1000) {
+    else if (clientAccount.balance < 500){
         factor = 16;
     }
-    else if (clientAccount.balance < 10000) {
+    else if (clientAccount.balance < 1000){
         factor = 30;
     }
-    else if (clientAccount.balance < 30000) {
+    else if (clientAccount.balance < 3000){
         factor = 70;
     }
-    else if ( clientAccount.balance < 50000) {
+    else if (clientAccount.balance < 5000){
         factor = 200;
     }
     return factor;
-};
 
-var AccountStatus = {accountStatus : function (clientAccount) {
+}
 
-    var factor1 = getAgeFactor(clientAccount);
-
-    var factor2 = getBalanceFactor(clientAccount);
-
+var accountStatus = function (clientAccount ) {
+    var factor1 = getAgeFactor(clientAccount );
+    var factor2 = getBalanceFactor(clientAccount );
+   
     var factor3 = factor1 * factor2;
     
-    if (factor3 == 0) {
-        return "invalid";
+    if (factor3 == 0){
+        return "invalid"
     }
-    else if (factor3 < 100) {
-        return "poor";
+    else if (factor3 < 100){
+        return "adverse";
     }
-    else if (factor3 < 500) {
-       return "fair";
+    else if (factor3 < 500){
+        return "acceptable";
     }
-    else if (factor3 < 1000) {
+    else if (factor3 < 1000){
         return "good"
     }
-    else {
-        return "very good";
-    }
-}};
+    else{
+        return "excellent";
+    }  
+}
 
-var creditStatus = {creditStatus : function (clientAccount, creditCheckMode) {
+var creditStatus=function (clientAccount,creditCheckMode){
     var scoreThreshold;
+    if (clientAccount.creditScore <0 || clientAccount.creditScore >100){
+        return "invalid";
+    }
+    if (creditCheckMode ==="restricted"){ // dont know what strict is, changed it to restricted
+        scoreThreshold=50;
+    }else if (creditCheckMode ==="default"){
+        scoreThreshold=75;
+    }
+    if (clientAccount.creditScore < scoreThreshold){ 
+        // the sign before was >, when it should have been <
+        return "adverse";
+    }    
+     else return "good";
 
-    if (clientAccount.creditScore < 0 || clientAccount.creditScore > 100)
-       return "invalid";
-    //FIXED changed to be restricted instead of strict as per docs provided
-    if (creditCheckMode === "restricted") {
-        scoreThreshold = 50;
-    }
-    else if (creditCheckMode === "default") {
-        scoreThreshold = 75;
-    }
-    //FIXED changed to be < because the doc says so
-    if (clientAccount.creditScore < scoreThreshold) {
-        return "bad";
-    }
-    else {
-        return "good";
-    }
+}
 
-}};
-
-var productStatus = {productStatus : function (product, inventory, inventoryThreshold) { 
+var productStatus=function (product,inventory,inventoryThreshold){ 
     var q;
-
-    for (let i = 0; i <= inventory.length; i++) {
+   
+    for (let i = 0; i < inventory.length; i++) { // changed <= to just < cause it was iterating too many times
         if (product == inventory[i].name) {
             q = inventory[i].q;
-            if(q < 0) {
-                return "invalid";
+            if(0 <= inventoryThreshold && inventoryThreshold <= 1000){ // added this to make sure inventoryThreshold is between 0 and 1000
+                if( q < 0 || q > 1000){ // added this because it never hit the return state below
+                    return "invalid";
+                }else if (q==0){
+                    return "soldout";
+                }else if (q < inventoryThreshold){ // changed > to < since the doc has it like that
+                    return "limited"
+                } else if (q >= inventoryThreshold){ // changed to >= because the doc has it like that.
+                    return "available"
+                }
             }
-          	if (q == 0) {
-                return "soldout";
-            }
-            else if (q < inventoryThreshold) {
-                return "limited"
-            }
-            else {
-                return "available"
-            }
+            
 		}
     }
-    return "invalid";
-}};
+ return "invalid";
+}
 
 
-var orderHandling = function(clientAccount, product, inventory, inventoryThreshold, creditCheckMode) {
+var orderHandling=function(clientAccount ,product,inventory,inventoryThreshold,creditCheckMode)
+{
+    var aStautus=accountStatus(clientAccount );
+    var cStatus=creditStatus(clientAccount ,creditCheckMode);
+    var pStatus=productStatus(product,inventory,inventoryThreshold);
 
-    var aStatus = AccountStatus.accountStatus(clientAccount);
-
-    var cStatus = creditStatus.creditStatus(clientAccount, creditCheckMode);
-
-    var pStatus = productStatus.productStatus(product, inventory, inventoryThreshold);
-
-    if ((aStatus === "invalid" || cStatus === "invalid" || pStatus === "invalid") 
-    || (aStatus === "fair" &&  cStatus === "bad" && pStatus != "available") 
-    || (aStatus === "poor" && cStatus === "good" && pStatus === "soldout") 
-    || (aStatus === "poor" && cStatus === "bad" )) {
+   if ((aStautus==="invalid"||cStatus==="invalid"||pStatus!= "invalid")|| 
+   (aStautus==="acceptable" &&  cStatus==="adverse" && pStatus!="available") ||     
+   (aStautus==="adverse" && cStatus==="good" && pStatus==="soldout") || 
+   (aStautus==="adverse" && cStatus==="adverse" ))
         return "rejected";
-    }
 
-    else if ((aStatus === "very good") || (aStatus === "good" && cStatus === "good") 
-    || (aStatus != "good" && cStatus === "good" && pStatus === "available")) {
+    else if ((aStautus==="excellent")|| (aStautus==="good" && cStatus==="good")||
+    (aStautus=== "acceptable" && cStatus==="good" && 	pStatus==="available"))
         return "accepted";
-    }
 
-    else if ((aStatus === "good" && cStatus === "bad") || (aStatus === "fair" && cStatus === "bad" && pStatus === "available")) {
+
+    else if ((aStautus==="good" && cStatus ==="adverse")||(aStautus==="acceptable" && cStatus==="adverse"
+    && pStatus==="available"))
         return "underReview";
-    }
 
-    else if ((aStatus === "fair" && cStatus === "good" && pStatus != "available") 
-    || (aStatus === "poor" && cStatus === "good" && pStatus === "limited")) {
+    else if ((aStautus ==="acceptable" && cStatus==="good" && pStatus!="available")
+    ||(aStautus==="adverse" && cStatus==="good" && pStatus==="limited"))
         return "pending";
-    }
-};
 
-//ADDED to be able to access all the functions from the test suites.
+
+
+
+
+}
+
 module.exports = {
     getAgeFactor:getAgeFactor,
     getBalanceFactor: getBalanceFactor,
-    AccountStatus: AccountStatus,
+    accountStatus: accountStatus,
     creditStatus: creditStatus,
     creditStatus: creditStatus,
     productStatus: productStatus,

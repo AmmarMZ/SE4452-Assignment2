@@ -43,6 +43,11 @@ describe('Get Age Factor Tests', () => {
 		0, 5, 5, 5, 10, 10, 10, 20, 20, 20, 50, 50, 50, 20, 20, 20, 20, 0,
 	]
 
+	/**
+   * Boundary tests are used to test the boundaries of the if statements of the function we are testing.
+   * For example if there is an if statement checking the value of a variable between (0, 10] then we
+   * will input values 0, 1, 9 and 10 to check if the function returns properly
+   */
 	describe('Boundary Class Tests', () => {
 		for (let i = 0; i < BCreturns.length; i++) {
 			it(`Boundary Test ${(i+1)}: Return ${BCreturns[i]} for age = ${agesBoundaries[i]}`, () => {
