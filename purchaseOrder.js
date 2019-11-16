@@ -1,3 +1,4 @@
+
 var getAgeFactor=function(clientAccount ){ 
     var factor;
 
@@ -48,9 +49,9 @@ var getBalanceFactor=function (clientAccount ){
 
 }
 
-var accountStatus = function (clientAccount ) {
-    var factor1 = getAgeFactor(clientAccount );
-    var factor2 = getBalanceFactor(clientAccount );
+var accountStatus = function (clientAccount) {
+    var factor1 = getAgeFactor(clientAccount);
+    var factor2 = getBalanceFactor(clientAccount);
    
     var factor3 = factor1 * factor2;
     
@@ -71,9 +72,9 @@ var accountStatus = function (clientAccount ) {
     }  
 }
 
-var creditStatus=function (clientAccount,creditCheckMode){
+var creditStatus = function (clientAccount,creditCheckMode){
     var scoreThreshold;
-    if (clientAccount.creditScore <0 || clientAccount.creditScore >100){
+    if (clientAccount.creditScore < 0 || clientAccount.creditScore > 100){
         return "invalid";
     }
     if (creditCheckMode ==="restricted"){ // dont know what strict is, changed it to restricted
@@ -89,6 +90,8 @@ var creditStatus=function (clientAccount,creditCheckMode){
 
 }
 
+// p1 --- thresh -- quantity
+
 var productStatus=function (product,inventory,inventoryThreshold){ 
     var q;
    
@@ -98,7 +101,8 @@ var productStatus=function (product,inventory,inventoryThreshold){
             if(0 <= inventoryThreshold && inventoryThreshold <= 1000){ // added this to make sure inventoryThreshold is between 0 and 1000
                 if( q < 0 || q > 1000){ // added this because it never hit the return state below
                     return "invalid";
-                }else if (q==0){
+                }
+                else if (q==0){
                     return "soldout";
                 }else if (q < inventoryThreshold){ // changed > to < since the doc has it like that
                     return "limited"
@@ -114,10 +118,15 @@ var productStatus=function (product,inventory,inventoryThreshold){
 
 
 var orderHandling=function(clientAccount ,product,inventory,inventoryThreshold,creditCheckMode)
+
 {
+
     var aStautus=accountStatus(clientAccount );
+
     var cStatus=creditStatus(clientAccount ,creditCheckMode);
+
     var pStatus=productStatus(product,inventory,inventoryThreshold);
+
 
    if ((aStautus==="invalid"||cStatus==="invalid"||pStatus!= "invalid")|| 
    (aStautus==="acceptable" &&  cStatus==="adverse" && pStatus!="available") ||     
@@ -125,17 +134,17 @@ var orderHandling=function(clientAccount ,product,inventory,inventoryThreshold,c
    (aStautus==="adverse" && cStatus==="adverse" ))
         return "rejected";
 
-    else if ((aStautus==="excellent")|| (aStautus==="good" && cStatus==="good")||
-    (aStautus=== "acceptable" && cStatus==="good" && 	pStatus==="available"))
+ else if ((aStautus==="excellent")|| (aStautus==="good" && cStatus==="good")||
+(aStautus=== "acceptable" && cStatus==="good" && 	pStatus==="available"))
         return "accepted";
 
 
-    else if ((aStautus==="good" && cStatus ==="adverse")||(aStautus==="acceptable" && cStatus==="adverse"
-    && pStatus==="available"))
+else if ((aStautus==="good" && cStatus ==="adverse")||(aStautus==="acceptable" && cStatus==="adverse"
+ && pStatus==="available"))
         return "underReview";
 
-    else if ((aStautus ==="acceptable" && cStatus==="good" && pStatus!="available")
-    ||(aStautus==="adverse" && cStatus==="good" && pStatus==="limited"))
+else if ((aStautus ==="acceptable" && cStatus==="good" && pStatus!="available")
+||(aStautus==="adverse" && cStatus==="good" && pStatus==="limited"))
         return "pending";
 
 
