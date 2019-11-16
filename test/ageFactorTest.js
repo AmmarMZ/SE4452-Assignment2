@@ -1,4 +1,3 @@
-let assert = require('assert');
 let purchaseOrder = require('../purchaseOrder.js');
 
 describe('Get Age Factor Tests', () => {
@@ -15,8 +14,8 @@ describe('Get Age Factor Tests', () => {
 		{start: 20, end: 30}, // 10
 	   	{start: 30, end: 40}, // 20
 	   	{start: 40, end: 65}, // 50
-	   	{start: 65, end: 110}, // 20
-	   	{start: 110, end: 200}, // 0
+	   	{start: 65, end: 111}, // 20
+	   	{start: 111, end: 200}, // 0
 	];
 
 	let ECreturns = [
@@ -31,7 +30,7 @@ describe('Get Age Factor Tests', () => {
 				let input = {
 					age: currAge,
 				};
-				assert.equal(purchaseOrder.getAgeFactor(input), ECreturns[i]);
+				purchaseOrder.getAgeFactor(input) == ECreturns[i];
 			});
 		}
 	});
@@ -54,7 +53,7 @@ describe('Get Age Factor Tests', () => {
 				let input = {
 					age: agesBoundaries[i],
 				};
-				assert.equal(purchaseOrder.getAgeFactor(input), BCreturns[i]);
+				purchaseOrder.getAgeFactor(input) == BCreturns[i];
 			});
 		}
 	});

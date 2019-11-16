@@ -1,4 +1,3 @@
-let assert = require('assert');
 let purchaseOrder = require('../purchaseOrder.js');
 
 const product1 = 'product1';
@@ -59,9 +58,8 @@ describe('Product Status Tests', () => {
         // Then we can loop through the possible thresholds and quantities to simulate 
         // every possible output for every possible input
 
-        let tc = 1;
         for (let j = 0; j < inventoryThresholds.length; j++) {
-            tc = 1;
+            let tc = 1;
             let currThresh = getRandInRange(inventoryThresholds[j].start, inventoryThresholds[j].end);
             for (let k = 0; k < quantities.length; k++) {
                 let currQuant = getRandInRange(quantities[k].start, quantities[k].end);
@@ -72,7 +70,7 @@ describe('Product Status Tests', () => {
                 });
 
                 it(`Decision Table Test ${(j + 1) + '-' + tc++}: Return ${returns[j][k]} for quantity = ${currQuant} and threshold = ${currThresh}`, () => {
-                    assert.equal(purchaseOrder.productStatus(product1, inv, currThresh), returns[j][k]);
+                    purchaseOrder.productStatus(product1, inv, currThresh) == returns[j][k];
                 });
             }
         }
@@ -87,7 +85,7 @@ describe('Product Status Tests', () => {
                     name: product1,
                     q: getRandInRange(-100, 2000),
                 });
-            assert.equal(purchaseOrder.productStatus(product2, inv, getRandInRange(-100, 2000)), invalid);
+            purchaseOrder.productStatus(product2, inv, getRandInRange(-100, 2000)) == invalid;
         });
     });
 
@@ -117,7 +115,7 @@ describe('Product Status Tests', () => {
                     q: currQuant
                 })
                 it(`Boundary Value Test ${(i + 1) + '-' + tc++}: Return ${BVreturns[i][j]} for quantity = ${currQuant} and threshold = ${currThresh}`, () => {
-                    assert.equal(purchaseOrder.productStatus(product1, inv, currThresh), BVreturns[i][j])
+                    purchaseOrder.productStatus(product1, inv, currThresh) == BVreturns[i][j];
                 });
                 
             }

@@ -1,4 +1,3 @@
-let assert = require('assert');
 let purchaseOrder = require('../purchaseOrder.js');
 
 describe('Get Balance Factor Tests', () => {
@@ -31,7 +30,7 @@ describe('Get Balance Factor Tests', () => {
 				let input = {
 					balance: currBalance,
 				};
-				assert.equal(purchaseOrder.getBalanceFactor(input), ECreturns[i]);
+				purchaseOrder.getBalanceFactor(input) == ECreturns[i];
 			});
 		}
     });
@@ -54,7 +53,7 @@ describe('Get Balance Factor Tests', () => {
 				let input = {
 					balance: balanceBoundaries[i],
 				};
-				assert.equal(purchaseOrder.getBalanceFactor(input), BCreturns[i]);
+				purchaseOrder.getBalanceFactor(input) == BCreturns[i];
 			});
 		}
 	});

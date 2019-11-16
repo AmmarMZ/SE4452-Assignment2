@@ -1,4 +1,3 @@
-let assert = require('assert');
 let purchaseOrder = require('../purchaseOrder.js');
 
 const invalid = 'invalid';
@@ -10,7 +9,7 @@ const ccmDefault = 'default';
 
 let creditCheckModes = [
 	ccmRestricted, ccmDefault,
-]
+];
 describe('Credit Status Tests', () => {
 	/**
 	 * Decision Table Tests
@@ -38,12 +37,11 @@ describe('Credit Status Tests', () => {
 			[good, good],
 			[invalid, invalid],
 		];
-		// tc is to number the test output 
-		let tc = 1;
 		for (let i = 0; i < creditScore.length; i++) {
 
 			let currCredit = getRandInRange(creditScore[i].start, creditScore[i].end);
-			tc = 1;
+			// tc is to number the test output 
+			let tc = 1;
 
 			for (let j = 0; j < creditCheckModes.length; j++) {
 				it(`Decision Table Test ${(i + 1) + '-' + tc++}: Return ${returns[i][j]} for credit score = ${currCredit} and credit check mode = ${creditCheckModes[j]}`,
@@ -51,7 +49,7 @@ describe('Credit Status Tests', () => {
 						let input = {
 							creditScore: currCredit,
 						};
-						assert.equal(purchaseOrder.creditStatus(input, creditCheckModes[j]), returns[i][j]);
+						purchaseOrder.creditStatus(input, creditCheckModes[j]) == returns[i][j];
 					});
 			}
 		}
@@ -81,7 +79,7 @@ describe('Credit Status Tests', () => {
 					let input = {
 						creditScore: currCredit,
 					};
-					assert.equal(purchaseOrder.creditStatus(input, creditCheckModes[j]), BCreturns[i][j]);
+					purchaseOrder.creditStatus(input, creditCheckModes[j]) == BCreturns[i][j];
 				});
 
 			}

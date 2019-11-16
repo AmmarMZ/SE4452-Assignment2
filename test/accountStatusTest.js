@@ -1,4 +1,3 @@
-let assert = require('assert');
 let purchaseOrder = require('../purchaseOrder.js');
 
 const invalid = 'invalid';
@@ -24,8 +23,8 @@ describe('Account Status Tests', () => {
             {start: 20, end: 30}, // 10
             {start: 30, end: 40}, // 20
             {start: 40, end: 65}, // 50
-            {start: 65, end: 110}, // 20
-            {start: 110, end: 200}, // 0
+            {start: 65, end: 111}, // 20
+            {start: 111, end: 200}, // 0
         ];
 
         // range of balances
@@ -49,12 +48,11 @@ describe('Account Status Tests', () => {
             [invalid, acceptable, acceptable, good, excellent, excellent, invalid],
             [invalid, invalid, invalid, invalid, invalid, invalid, invalid],
         ];
-        // tc is to number the test output 
-        let tc = 1;
         for (let i = 0; i < ages.length; i++) {
 
             let currAge = getRandInRange(ages[i].start, ages[i].end);
-            tc = 1;
+            // tc is to number the test output 
+            let tc = 1;
 
             for (let j = 0; j < balances.length; j++) {
 
@@ -64,7 +62,7 @@ describe('Account Status Tests', () => {
                         age: currAge,
                         balance: currBalance,
                     };
-                    assert.equal(purchaseOrder.accountStatus(input), returns[i][j]);
+                    purchaseOrder.accountStatus(input) == returns[i][j];
                 });
             }
         }	
