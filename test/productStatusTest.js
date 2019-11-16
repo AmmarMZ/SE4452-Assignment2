@@ -1,8 +1,20 @@
+/**
+ * Code Written By :    Ammar Mirza
+ * Student Number :     250486071
+ * Email :              amirza28@uwo.ca
+ * 
+ * The test cases for this assignment were written with the PROVIDED purchaseOrder.js
+ * The original purchaseOrder.js was modified because some of the brackets and conditional statements were incorrect 
+ * and were causing errors. When running the tests please use the purchaseOrder.js file that was included in the submission.
+ * All functions were tested implicitly and stub functions were not used. This is because it was simple enough to simulate
+ * the function output values. Applicable Equivalence, Boundary and Decision testing was done based on the function being tested.
+ */
+
 let purchaseOrder = require('../purchaseOrder.js');
+let assert = require('assert');
 
 const product1 = 'product1';
 const product2 = 'product2';
-
 const invalid = 'invalid';
 const soldout = 'soldout';
 const available = 'available';
@@ -70,7 +82,7 @@ describe('Product Status Tests', () => {
                 });
 
                 it(`Decision Table Test ${(j + 1) + '-' + tc++}: Return ${returns[j][k]} for quantity = ${currQuant} and threshold = ${currThresh}`, () => {
-                    purchaseOrder.productStatus(product1, inv, currThresh) == returns[j][k];
+                    assert.equal(purchaseOrder.productStatus(product1, inv, currThresh), returns[j][k]);
                 });
             }
         }
@@ -85,7 +97,7 @@ describe('Product Status Tests', () => {
                     name: product1,
                     q: getRandInRange(-100, 2000),
                 });
-            purchaseOrder.productStatus(product2, inv, getRandInRange(-100, 2000)) == invalid;
+           assert.equal(purchaseOrder.productStatus(product2, inv, getRandInRange(-100, 2000)), invalid);
         });
     });
 
@@ -115,7 +127,7 @@ describe('Product Status Tests', () => {
                     q: currQuant
                 })
                 it(`Boundary Value Test ${(i + 1) + '-' + tc++}: Return ${BVreturns[i][j]} for quantity = ${currQuant} and threshold = ${currThresh}`, () => {
-                    purchaseOrder.productStatus(product1, inv, currThresh) == BVreturns[i][j];
+                    assert.equal(purchaseOrder.productStatus(product1, inv, currThresh), BVreturns[i][j]);
                 });
                 
             }

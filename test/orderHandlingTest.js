@@ -1,9 +1,23 @@
+/**
+ * Code Written By :    Ammar Mirza
+ * Student Number :     250486071
+ * Email :              amirza28@uwo.ca
+ * 
+ * The test cases for this assignment were written with the PROVIDED purchaseOrder.js
+ * The original purchaseOrder.js was modified because some of the brackets and conditional statements were incorrect 
+ * and were causing errors. When running the tests please use the purchaseOrder.js file that was included in the submission.
+ * All functions were tested implicitly and stub functions were not used. This is because it was simple enough to simulate
+ * the function output values. Applicable Equivalence, Boundary and Decision testing was done based on the function being tested.
+ */
+
 let purchaseOrder = require('../purchaseOrder.js');
+let assert = require('assert');
+
 
 const ccmRestricted = 'restricted';
 const prod1 = 'product1';
 
-const rejected = 'rejected';
+const rejected = "rejected";
 const accepted = 'accepted';
 const underReview = 'underReview';
 const pending = 'pending';
@@ -12,19 +26,21 @@ const pending = 'pending';
 describe('Order Handling Tests', () => {
 	/**
 	 * Decision Table Tests
-     * We are going to do a test for every range of age vs every range of balances
-     * That way we will cover every combination of inputs and their outputs
-     * We dont need EC or BV testing here because the DT tests will cover every input 
-     * and the functions that account status uses will be EC and BV tested on their own
+     * We are going to do a test for every possible combination of 
+     * accountStatus(), creditStatus(), and productStatus() output values
+     * That way we will cover every combination of inputs and the orderHandling() outputs
      **/
 	describe('Decision Table Tests', () => {
 
-        // Because we already have tests for each function
-        // we only need inputs that simulate the results of accountStatus
-        // creditStatus and product Status respectively
+        /** Because we already have tests for each function
+        * we only need inputs that simulate the results of accountStatus
+        * creditStatus and product Status respectively
+        **/
          
-        // params for accountStatus() within orderHandling() that will
-        // simulate the following outputs
+        /**
+         * the following parameters will output 
+         * all possible output values for accountStatus()
+         */
 		let accountStatuses = [
             {age: 0, balance: 0}, // returns invalid
             {age: 17, balance: 50}, // returns adverse
@@ -34,16 +50,20 @@ describe('Order Handling Tests', () => {
         ];
 
         
-        // params for creditStatus() within orderHandling() that will
-        // simulate the following outputs
+        /**
+         * the following parameters will output 
+         * all possible output values for creditStatus()
+         */
         let creditStatuses = [
             {creditScore: -50, creditCheckMode: ccmRestricted}, // returns invalid
             {creditScore: 25, creditCheckMode: ccmRestricted}, // returns adverse
             {creditScore: 65, creditCheckMode: ccmRestricted}, // returns good
         ]
 
-        // params for productStatus() within orderHandling() that will
-        // simulate the following outputs
+        /**
+         * the following parameters will output 
+         * all possible output values for productStatus()
+         */
         let productStatuses = [
             {name: prod1, threshold: -5, q: -200}, // returns invalid
             {name: prod1, threshold: 250, q: 0}, // returns soldout
@@ -51,6 +71,10 @@ describe('Order Handling Tests', () => {
             {name: prod1, threshold: 250, q: 300}, // returns available
         ]
 
+         /**
+         * setting up the expected output values of the function being tested.
+         * These values were calculated manually
+         */
         let returns = [
             [
                 [rejected, rejected, rejected, rejected], // [0][0][k]
@@ -58,32 +82,31 @@ describe('Order Handling Tests', () => {
                 [rejected, rejected, rejected, rejected], // [0][2][k]
             ],
             [
-                [rejected, rejected, rejected, rejected], // [1][0][k]
-                [rejected, rejected, rejected, rejected], // [1][1][k]
+                [undefined, rejected, rejected, rejected], // [1][0][k]
+                [undefined, rejected, rejected, rejected], // [1][1][k]
                 [undefined, rejected, rejected, rejected], // [1][2][k]
             ],
             [
-                [rejected, rejected, rejected, rejected], // [2][0][k]
-                [rejected, rejected, undefined, rejected], // [2][1][k]
+                [pending, rejected, rejected, rejected], // [2][0][k]
+                [pending, rejected, rejected, rejected], // [2][1][k]
                 [pending, rejected, rejected, rejected], // [2][2][k]
             ],
             [
-                [rejected, rejected, rejected, rejected], // [3][0][k]
-                [underReview, rejected, rejected, rejected], // [3][1][k]
+                [accepted, rejected, rejected, rejected], // [3][0][k]
+                [accepted, rejected, rejected, rejected], // [3][1][k]
                 [accepted, rejected, rejected, rejected], // [3][2][k]
             ],
             [
-                [rejected, rejected, rejected, rejected], // [4][0][k]
+                [accepted, rejected, rejected, rejected], // [4][0][k]
                 [accepted, rejected, rejected, rejected], // [4][1][k]
                 [accepted, rejected, rejected, rejected], // [4][2][k]
             ]
         ];
 
-        // combining all 3 functions will give us 60 possible unqiue combinations of 
-        // the results of the 3 functions within orderHandling and thus 
-        // cover all possible conditional and output paths
-        
-        let temp = 1;
+        /** combining all 3 functions will give us 60 possible unqiue combinations of 
+        * the results of the 3 functions within orderHandling and thus 
+        * cover all possible conditional and output path
+        **/
         for (let i = 0; i < accountStatuses.length; i++) {
 
             let currClientAccount = {
@@ -99,9 +122,9 @@ describe('Order Handling Tests', () => {
                         q: productStatuses[k].q,
                     });
 
-                   it(`Decision Table Test ${(i + 1) + '-' + (j + 1) + '-' + (k+1)}: Return ${returns[i][j][k]}`, () => {	
-					    purchaseOrder.orderHandling(currClientAccount, prod1, inv, productStatuses[k].threshold, ccmRestricted) == returns[i][j][k];
-					});
+                   it(`Decision Table Test ${(i+1) + '-' + (j+1) + '-' + (k+1)}: Return ${returns[i][j][k]}`, () => {	
+					    assert.equal(purchaseOrder.orderHandling(currClientAccount, prod1, inv, productStatuses[k].threshold, ccmRestricted), returns[i][j][k]);
+                    });
                 }
             }
         }

@@ -1,4 +1,18 @@
+/**
+ * Code Written By :    Ammar Mirza
+ * Student Number :     250486071
+ * Email :              amirza28@uwo.ca
+ * 
+ * The test cases for this assignment were written with the PROVIDED purchaseOrder.js
+ * The original purchaseOrder.js was modified because some of the brackets and conditional statements were incorrect 
+ * and were causing errors. When running the tests please use the purchaseOrder.js file that was included in the submission.
+ * All functions were tested implicitly and stub functions were not used. This is because it was simple enough to simulate
+ * the function output values. Applicable Equivalence, Boundary and Decision testing was done based on the function being tested.
+ */
+
 let purchaseOrder = require('../purchaseOrder.js');
+let assert = require('assert');
+
 
 const invalid = 'invalid';
 const adverse = 'adverse';
@@ -13,14 +27,15 @@ let creditCheckModes = [
 describe('Credit Status Tests', () => {
 	/**
 	 * Decision Table Tests
-     * We are going to do a test for every range of age vs every range of balances
+     * We are going to do a test for every range of credit score vs every credit check mode
      * That way we will cover every combination of inputs and their outputs
-     * We dont need EC or BV testing here because the DT tests will cover every input 
-     * and the functions that account status uses will be EC and BV tested on their own
      **/
 	describe('Decision Table Tests', () => {
 
-		// setting up variable ranges  
+		/**
+		 * setting up the possible credit score ranges, we will randomly select a value from here
+		 * using getRandInRange(). Note: @start is inclusive and @end is exclusive
+		*/
 		let creditScore = [
 			{ start: -100, end: 0 },
 			{ start: 0, end: 50 },
@@ -29,7 +44,10 @@ describe('Credit Status Tests', () => {
 			{ start: 101, end: 200 },
 		];
 
-		// manually calculated the return values
+		 /**
+		 * setting up the expected output values of the function being tested.
+		 * These values were calculated manually
+		 */
 		let returns = [
 			[invalid, invalid],
 			[adverse, adverse],
@@ -49,16 +67,26 @@ describe('Credit Status Tests', () => {
 						let input = {
 							creditScore: currCredit,
 						};
-						purchaseOrder.creditStatus(input, creditCheckModes[j]) == returns[i][j];
+						assert.equal(purchaseOrder.creditStatus(input, creditCheckModes[j]), returns[i][j]);
 					});
 			}
 		}
 	});
 
+	
+	/**
+	 * A list of the possible boundary values that is one less, equal and one greater to the boundary being tested.
+	 * E.g. if the boundary is 15 we will have 14, 15 and 16 in this list
+	*/
 	let creditScoreBoundaries = [
 		-1, 0, 1, 99, 100, 101
 	];
 
+	/**
+	 * The expected return values for the boundary being tested. We have 2 expected outputs per input
+	 * because we will need to map each boundary to both credit check modes
+	 * Each return value maps to the same boundary in @creditScoreBoundaries
+	*/
 	let BCreturns = [
 		[invalid, invalid],
 		[adverse, adverse],
@@ -79,9 +107,8 @@ describe('Credit Status Tests', () => {
 					let input = {
 						creditScore: currCredit,
 					};
-					purchaseOrder.creditStatus(input, creditCheckModes[j]) == BCreturns[i][j];
+					assert.equal(purchaseOrder.creditStatus(input, creditCheckModes[j]),BCreturns[i][j]);
 				});
-
 			}
 		}
 	});

@@ -1,4 +1,16 @@
+/**
+ * Code Written By :    Ammar Mirza
+ * Student Number :     250486071
+ * Email :              amirza28@uwo.ca
+ * 
+ * The test cases for this assignment were written with the PROVIDED purchaseOrder.js
+ * The original purchaseOrder.js was modified because some of the brackets and conditional statements were incorrect 
+ * and were causing errors. When running the tests please use the purchaseOrder.js file that was included in the submission.
+ * All functions were tested implicitly and stub functions were not used. This is because it was simple enough to simulate
+ * the function output values. Applicable Equivalence, Boundary and Decision testing was done based on the function being tested.
+ */
 let purchaseOrder = require('../purchaseOrder.js');
+let assert = require('assert');
 
 const invalid = 'invalid';
 const adverse = 'adverse';
@@ -12,11 +24,14 @@ describe('Account Status Tests', () => {
      * We are going to do a test for every range of age vs every range of balances
      * That way we will cover every combination of inputs and their outputs
      * We dont need EC or BV testing here because the DT tests will cover every input 
-     * and the functions that account status uses will be EC and BV tested on their own
+     * and the functions that are called in accountStatus() will be EC and BV tested on their own
      **/
 	describe('Decision Table Tests', () => {
 
-		// setting up variable ranges  
+        /**
+         * setting up the possible age ranges, we will randomly select a value from here
+         * using getRandInRange(). Note: @start is inclusive and @end is exclusive
+         */
 		let ages = [
             {start: -50, end: 15}, // 0
             {start: 15, end: 20}, // 5
@@ -26,8 +41,11 @@ describe('Account Status Tests', () => {
             {start: 65, end: 111}, // 20
             {start: 111, end: 200}, // 0
         ];
-
-        // range of balances
+        
+        /**
+         * setting up the possible balance ranges, we will randomly select a value from here
+         * using getRandInRange(). Note: @start is inclusive and @end is exclusive
+         */        
         let balances = [
             {start: -50, end: 1}, // 0
             {start: 1, end: 100}, // 6
@@ -38,7 +56,10 @@ describe('Account Status Tests', () => {
             {start: 5000, end: 6000}, // 0
         ];
 
-        // manually calculated the return values
+        /**
+         * setting up the expected output values of the function being tested.
+         * These values were calculated manually.
+         */
         let returns = [
             [invalid, invalid, invalid, invalid, invalid, invalid, invalid],
             [invalid, adverse, adverse, acceptable, acceptable, excellent, invalid],
@@ -62,7 +83,7 @@ describe('Account Status Tests', () => {
                         age: currAge,
                         balance: currBalance,
                     };
-                    purchaseOrder.accountStatus(input) == returns[i][j];
+                    assert.equal(purchaseOrder.accountStatus(input), returns[i][j]);
                 });
             }
         }	
